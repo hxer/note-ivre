@@ -1,0 +1,65 @@
+<!--
+  This file is part of IVRE.
+  Copyright 2011 - 2015 Pierre LALET <pierre.lalet@cea.fr>
+
+  IVRE is free software: you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  IVRE is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+  License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with IVRE. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<li class="sidebox-header"><i class="glyphicon glyphicon-filter black"></i> {{title}}</li>
+<form class="" ng-submit="submitform()">
+  <li ng-repeat="param in parametersprotected track by $index"
+      class="filter-list">
+    <div class="input-group">
+      <input class="form-control input-medium"
+	     type="text"
+	     id="{{idprefix + 'filter' + $index}}"
+	     name="{{'filter' + $index}}"
+	     data-trigger="manual"
+	     data-html="true"
+	     data-container="body"
+	     data-placement="{{tooltipplace}}"
+	     oninput="ToolTip.handle(this, HELP_FILTERS);"
+	     onfocus="ToolTip.handle(this, HELP_FILTERS);"
+	     onblur="ToolTip.remove(this);"
+	     ng-model="parametersprotected[$index]"
+	     placeholder="Add a criteria"/>
+      <span class="input-group-addon clickable"
+	    ng-click="clear_and_submit($index);"
+	    ><i class="glyphicon glyphicon-remove"></i></span>
+    </div>
+  </li>
+  <li class="filter-list">
+    <div class="input-group">
+      <input class="form-control input-medium"
+	     type="text"
+	     id="{{idprefix + 'filter-last'}}"
+	     name="filter-last"
+	     data-trigger="manual"
+	     data-html="true"
+	     data-container="body"
+	     data-placement="{{tooltipplace}}"
+	     oninput="ToolTip.handle(this, HELP_FILTERS);"
+	     onfocus="ToolTip.handle(this, HELP_FILTERS);"
+	     onblur="ToolTip.remove(this);"
+	     placeholder="Add a criteria"
+	     ng-model="lastfiltervalue"/>
+      <span class="input-group-addon clickable"
+	    ng-click="lastfiltervalue = '';"
+	    ><i class="glyphicon glyphicon-remove"></i></span>
+    </div>
+    <input type="submit"
+	   tabindex="-1"
+	   style="position: absolute; left: -9999px; width: 1px; height: 1px;"/>
+  </li>
+</form>

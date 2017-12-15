@@ -1,0 +1,271 @@
+/*
+ * This file is part of IVRE.
+ * Copyright 2011 - 2015 Pierre LALET <pierre.lalet@cea.fr>
+ *
+ * IVRE is free software: you can redistribute it and/or modify it
+ * under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * IVRE is distributed in the hope that it will be useful, but WITHOUT
+ * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+ * or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+ * License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with IVRE. If not, see <http://www.gnu.org/licenses/>.
+ */
+
+/* leave room from the topbar */
+body {
+    padding-top: 40px;
+}
+
+.navbar .logo {
+    margin-top: 5px;
+    max-height: 30px;
+    float: left;
+}
+
+.navbar-nav > li > a {
+    padding-top:10px !important;
+    padding-bottom:10px !important;
+}
+
+.navbar-nav > li > .dropdown-menu {
+    margin-top: 5px !important;
+}
+
+.navbar {
+    min-height: 40px !important;
+}
+
+hr {
+    margin-top: 10px !important;
+    margin-bottom: 10px !important;
+}
+
+.navbar-brand {
+    padding-top: 10px;
+    padding-bottom: 10px;
+    font-size: 20px;
+    min-height: 20px;
+    height: 20px;
+}
+
+.navbar-ivre {
+    margin-left: 10%;
+}
+
+.navbar-link {
+    float: right !important;
+    margin-right: 20%;
+}
+
+.ivre-main {
+    margin-top: 10px;
+}
+
+.sidebar {
+    position: fixed;
+}
+
+.sidebar .progress {
+    margin-bottom: 5px;
+}
+
+/* Progress bar not starting at the beginning */
+.progress-bar-empty {
+    background-image: none;
+    background: none;
+    box-shadow: none;
+}
+
+form {
+    margin: 0 0 10px;
+}
+
+.btn-with-input-medium {
+    width: 164px;
+}
+
+.btn-with-input-large {
+    width: 224px;
+}
+
+#notes-container {
+    position: fixed;
+}
+
+.result-container {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 5px;
+    margin-bottom: 5px;
+    transition: border .2s, margin .2s;
+}
+
+.result-scripts-output {
+    font-size: 9pt;
+}
+
+.result-url {
+    float: right;
+}
+
+.result-traceroute-hops {
+    font-size: 9pt;
+    background-color: #F5F5F5;
+    border: 1px solid rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    display: block;
+    line-height: 20px;
+    margin: 0 0 10px;
+    padding: 9.5px;
+    white-space: pre-wrap;
+    word-break: break-all;
+    word-wrap: break-word;
+    color: #333333;
+    font-family: Monaco,Menlo,Consolas,"Courier New",monospace;
+}
+
+.preview {
+    overflow: hidden;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    max-height: 150px;
+}
+
+.result {
+    border: 2px solid rgba(0, 0, 0, 0.4);
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.summary > table > tbody > tr > td {
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.dtnormal {
+    font-weight: normal;
+}
+
+.highlight {
+    background-color: #ffdddd;
+}
+
+.highlight-more {
+    background-color: #ffaaaa;
+}
+
+.notebtn {
+    cursor: pointer;
+    float: right;
+}
+
+.charts > div {
+    height: 400px;
+}
+
+.label-status {
+    min-width: 7ex;
+    text-align: center;
+}
+
+.brush .extent {
+    stroke: #000;
+    fill-opacity: .125;
+    shape-rendering: crispEdges;
+}
+
+.clickable {
+    cursor: pointer;
+}
+
+[class^="icon-"], [class*=" icon-"], .flag-icon {
+    vertical-align: -10%;
+}
+
+.popover {
+    max-width: 500px;
+}
+
+.screenshot {
+    border: 1px solid rgba(0, 0, 0, 0.5);
+    margin: 1%;
+    max-width: 98%;
+}
+
+.result-cpe-item {
+    border: 1px solid #ccc;
+    padding: 0px;
+    margin: -1px;
+    background-color: #F5F5F5;
+    word-break: break-all;
+    word-wrap: break-word;
+}
+
+.result-cpe-item > [class^="col-"] {
+    padding-left: 5px;
+    padding-right: 0px;
+}
+
+.result-cpe {
+    margin: 5px 0px;
+}
+
+.glyphicon.white {
+    color: #fff;
+}
+
+.glyphicon.black {
+    color: #000000;
+}
+
+.sidebox-header {
+    font-size: 11px;
+    font-weight: bold;
+    line-height: 20px;
+    color: #999;
+    text-transform: uppercase;
+    text-shadow: 0px 1px 0px rgba(255, 255, 255, 0.5);
+}
+
+.label {
+    display: inline-block;
+    padding: 0.4em 0.6em 0.3em;
+}
+
+.alert-level {
+    margin-left: 1%;
+    margin-right: 1%;
+}
+
+.download {
+    color: black;
+}
+
+.menu-single {
+    font-weight: bold;
+}
+
+.filter-list > .input-group {
+    margin-bottom: 5px;
+}
+
+.graph-list > div > ul > li {
+    margin: 5px;
+}
+
+.navbar.graph-list .navbar-inner {
+    text-align: center;
+}
+
+.navbar.graph-list .navbar-inner .nav {
+    float: none;
+    display:inline-block;
+}
+
+.port {
+    margin-top: 1px;
+}

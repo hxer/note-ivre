@@ -1,0 +1,103 @@
+# This file is part of IVRE.
+#
+# Copyright 2011 - 2017 Pierre LALET <pierre.lalet@cea.fr>
+#
+# This file contains expected results for IVRE's tests run with public
+# data. It is intended for use within the Travis CI platform with
+# files downloaded during the "before_script" phase. The following
+# files must be downloaded (and, for some of them, saved with a proper
+# extension, see file .travis.yml):
+#
+## https://ivre.rocks/data/Nmap-Modbus-IPv4.json.bz2
+## https://wiki.wireshark.org/SampleCaptures?action=AttachFile&do=get&target=http.cap
+## https://wiki.wireshark.org/SampleCaptures?action=AttachFile&do=get&target=imap.cap.gz
+## https://wiki.wireshark.org/SampleCaptures?action=AttachFile&do=get&target=telnet-raw.pcap
+## https://wiki.wireshark.org/SampleCaptures?action=AttachFile&do=get&target=nb6-startup.pcap
+## https://wiki.wireshark.org/SampleCaptures?action=AttachFile&do=get&target=nb6-http.pcap
+## https://wiki.wireshark.org/SampleCaptures?action=AttachFile&do=get&target=nb6-telephone.pcap
+## https://wiki.wireshark.org/SampleCaptures?action=AttachFile&do=get&target=nb6-hotspot.pcap
+## https://ivre.rocks/data/db/data-raw-table
+## https://ivre.rocks/data/db/GeoIPASNum2.zip
+## https://ivre.rocks/data/db/GeoIPCountryCSV.zip
+## https://ivre.rocks/data/db/GeoLiteCity-latest.zip
+## https://ivre.rocks/data/db/iso3166.csv
+
+
+nmap_netdev_count = 1368
+nmap_webcam_count = 178
+nmap_topprod = [u'telnet', u'Linux telnetd']
+nmap_phpmyadmin_count = 0
+nmap_not_80_443_count = 4715
+nmap_topsrv = u'tcpwrapped'
+nmap_openport_count = 12459
+nmap_nis_count = 1
+nmap_topdomain = u'net'
+nmap_webmin_count = 0
+nmap_80_443_count = 1013
+nmap_httpauth_count = 0
+nmap_robots.txt_count = 365
+nmap_ldapanon_count = 0
+nmap_vncauthbypass_count = 0
+nmap_x11access_count = 0
+nmap_80_count = 7214
+nmap_robots.txt_cgi_count = 17
+nmap_owa_count = 12
+nmap_http_title_count = 7352
+nmap_torcert_count = 0
+nmap_x11_count = 97
+nmap_topprod_80 = [u'http', u'thttpd']
+nmap_nfs_count = 5
+nmap_ssh_count = 1495
+nmap_mssql_emptypwd_count = 0
+nmap_topdevtype = u'WAP'
+nmap_get_count = 12460
+nmap_topsrv_80 = u'http'
+nmap_tophop = '65.49.10.217'
+nmap_xp445_count = 27
+nmap_phonedev_count = 56
+nmap_get_archives_count = 0
+nmap_anonftp_count = 207
+nmap_topdevtype_80 = u'power-misc'
+nmap_not_domain_com_count = 10917
+nmap_vsftpbackdoor_count = 6
+nmap_mysql_emptypwd_count = 0
+nmap_domain_com_count = 1542
+nmap_topdomains_1 = u'net'
+nmap_webfiles_count = 25
+nmap_geovision_count = 33
+nmap_trace_hostname_count = 12159
+nmap_not_domain_com_or_net_count = 8446
+nmap_tophop_10+ = '212.252.168.207'
+nmap_10-100_ports = 667
+nmap_20_ports = 6
+nmap_isakmp_count = 199
+nmap_isakmp_top_products = 'isakmp / None: 175\nisakmp / SonicWall: 17\nisakmp / Openswan: 7\n'
+nmap_domains_pttsh_tw = ['s228.pttsh.ttct.edu.tw', 's231.pttsh.ttct.edu.tw', 's232.pttsh.ttct.edu.tw']
+nmap_extended_eu_count = 5301
+nmap_top_filename = 'www: 15\n'
+nmap_top_anonftp_filename = 'www: 15\n'
+nmap_top_uids = 'ftproot: 1369\n1000: 694\nroot: 318\nNone: 297\n0: 195\nanonymous: 79\nftp: 68\nuser: 61\nftpuser: 51\nowner: 48\n'
+nmap_top_anonftp_uids = 'ftproot: 1369\n1000: 694\nroot: 318\nNone: 297\n0: 194\nanonymous: 79\nftp: 68\nuser: 61\nftpuser: 51\nowner: 48\n'
+nmap_top_modbus_deviceids = 'Schneider Electric   BMX P34 2020 v2.5: 222\nSolare Datensysteme GmbH xxxxxx V1.00: 180\nSchneider Electric   BMX P34 2020 v2.2: 86\nSchneider Electric   BMX P34 2020 v2.4: 72\nSchneider Electric BMX NOE 0100 V2.60: 70\nSchneider Electric SAS TSXETY4103 V3.1: 67\nTELEMECANIQUE SR3 MBU01BD V1.3: 52\nSiemens SIMATIC S7-200: 49\nSchneider Electric   BMX P34 2020 v2.1: 48\nSchneider Electric BMX NOE 0100 V2.0: 46\n'
+nmap_top_services = 'None: 54165\ntcpwrapped: 42577\nmodbus: 12159\nhttp: 9943\nftp: 3415\ntelnet: 2809\nssh: 2152\nmsrpc: 698\nvnc: 569\nms-wbt-server: 550\n'
+nmap_top_product = 'None / None: 54165\ntcpwrapped / None: 42574\nmodbus / None: 12154\nhttp / None: 1406\ntelnet / Linux telnetd: 1110\nssh / OpenSSH: 1091\ntelnet / None: 982\nftp / None: 753\nhttp / lighttpd: 747\nmsrpc / Microsoft Windows RPC: 689\n'
+nmap_top_product_http = 'http / None: 1406\nhttp / lighttpd: 747\nhttp / Apache httpd: 679\nhttp / thttpd: 624\nhttp / Boa HTTPd: 469\nhttp / Microsoft IIS httpd: 438\nhttp / mini_httpd: 334\nhttp / Sierra Wireless Raven XE V2221E-V 3G WAP http admin: 272\nhttp / ioLogik Web Server/1.0: 239\nhttp / Allegro RomPager: 233\n'
+nmap_top_version = 'None / None / None: 54165\ntcpwrapped / None / None: 42574\nmodbus / None / None: 12154\nhttp / None / None: 1406\ntelnet / Linux telnetd / None: 1110\ntelnet / None / None: 982\nftp / None / None: 753\nmsrpc / Microsoft Windows RPC / None: 689\nms-wbt-server / Microsoft Terminal Service / None: 548\nvnc / VNC / None: 484\n'
+nmap_top_version_http = 'http / None / None: 1406\nhttp / mini_httpd / 1.19 19dec2003: 334\nhttp / Sierra Wireless Raven XE V2221E-V 3G WAP http admin / None: 272\nhttp / thttpd / 2.25b 29dec2003: 262\nhttp / ioLogik Web Server/1.0 / None: 239\nhttp / lighttpd / None: 235\nhttp / Microsoft IIS httpd / 7.5: 225\nhttp / Beck IPC@CHIP embedded httpd / None: 209\nhttp / Boa httpd / None: 194\nhttp / thttpd / 2.20c 21nov01: 190\n'
+nmap_top_version_http_apache = 'http / Apache httpd / None: 172\nhttp / Apache httpd / 2.0.54: 97\nhttp / Apache httpd / 2.2.22: 74\nhttp / Apache httpd / 2.2.8: 39\nhttp / Apache httpd / 2.2.15: 37\nhttp / Apache httpd / 2.2.14: 32\nhttp / Apache httpd / 2.2.13: 26\nhttp / Apache httpd / 1.3.33: 21\nhttp / Apache httpd / 2.2.3: 18\nhttp / Apache httpd / 2.2.9: 17\n'
+nmap_ssh_top_port_api = [{'count': 1562, '_id': (u'tcp', 22)}, {'count': 73, '_id': (u'tcp', 2222)}, {'count': 58, '_id': (u'tcp', 10001)}, {'count': 54, '_id': (u'tcp', 10002)}, {'count': 51, '_id': (u'tcp', 10003)}, {'count': 49, '_id': (u'tcp', 23)}, {'count': 46, '_id': (u'tcp', 10004)}, {'count': 31, '_id': (u'tcp', 8022)}, {'count': 23, '_id': (u'tcp', 10009)}, {'count': 22, '_id': (u'tcp', 10010)}]
+nmap_ssh_top_port_cli = ['tcp / 22: 1562', 'tcp / 2222: 73', 'tcp / 10001: 58', 'tcp / 10002: 54', 'tcp / 10003: 51', 'tcp / 23: 49', 'tcp / 10004: 46', 'tcp / 8022: 31', 'tcp / 10009: 23', 'tcp / 10010: 22']
+nmap_ssh_top_port_cgi = [{u'value': 1562, u'label': [u'tcp', 22]}, {u'value': 73, u'label': [u'tcp', 2222]}, {u'value': 58, u'label': [u'tcp', 10001]}, {u'value': 54, u'label': [u'tcp', 10002]}, {u'value': 51, u'label': [u'tcp', 10003]}, {u'value': 49, u'label': [u'tcp', 23]}, {u'value': 46, u'label': [u'tcp', 10004]}, {u'value': 31, u'label': [u'tcp', 8022]}, {u'value': 23, u'label': [u'tcp', 10009]}, {u'value': 22, u'label': [u'tcp', 10010]}]
+passive_count = 103
+passive_torcert_count = 0
+passive_javaua_count = 0
+passive_popauth_count = 0
+passive_cert_google = 0
+passive_basicauth_count = 0
+passive_httpauth_count = 0
+passive_ftpauth_count = 0
+passive_cert_microsoft = 0
+passive_top_addr_distinct = 1447166179
+passive_top_addr_distinct_count = 14
+passive_top_addr_not_distinct = 1447166179
+passive_top_addr_not_distinct_count = 32

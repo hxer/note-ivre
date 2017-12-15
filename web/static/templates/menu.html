@@ -1,0 +1,98 @@
+<!--
+  This file is part of IVRE.
+  Copyright 2011 - 2015 Pierre LALET <pierre.lalet@cea.fr>
+
+  IVRE is free software: you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  IVRE is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+  License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with IVRE. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<!-- The top navigation bar -->
+<div id="navbar" class="navbar navbar-inverse navbar-fixed-top row no-export">
+  <div class="col-lg-2 col-sm-1">
+    <div class="navbar-ivre">
+      <!-- The logo + app name -->
+      <a href="#"><img alt="Logo" src="logo.png" class="logo"/></a>
+      <a href="#" class="navbar-brand visible-lg visible-xs"
+	 ng-attr-title="IVRE {{::version}}">
+	IVRE
+      </a>
+    </div>
+  </div>
+
+  <!-- The menu -->
+  <ul class="nav navbar-nav col-lg-9 col-md-10 col-sm-11 hidden-xs">
+
+    <li ng-repeat="item1 in MENU.items" class="dropdown">
+      <a ng-class="{'dropdown-toggle': item1.items != undefined}" class="clickable"
+	 data-toggle="dropdown" ng-click="eval_action(item1.action)">
+	<i ng-if="item1.icon" class="glyphicon glyphicon-{{item1.icon}} white hidden-sm hidden-md"></i>
+	<span ng-class="{'menu-single': item1.items == undefined}">
+	  {{item1.title}}
+	</span>
+	<b ng-if="item1.items" class="caret"></b>
+      </a>
+      <ul ng-if="item1.items" class="dropdown-menu">
+	<li ng-repeat="item2 in item1.items">
+	  <a class="clickable" ng-click="eval_action(item2.action)" ng-attr-id="{{item2.attr.id}}">
+	    <i ng-if="item2.icon" class="glyphicon glyphicon-{{item2.icon}}"></i>
+	    {{item2.title}}
+	  </a>
+	  <a ng-repeat="item3 in item2.items" class="clickable" ng-click="eval_action(item3.action)">
+	    &nbsp;<i class="glyphicon glyphicon-chevron-right"></i> {{item3.title}}
+	  </a>
+	</li>
+      </ul>
+    </li>
+
+    <!-- Share -->
+    <li ng-if="MENU.share" class="dropdown hidden-xs hidden-sm">
+      <a class="dropdown-toggle clickable" data-toggle="dropdown">
+	<i class="glyphicon glyphicon-share white hidden-md"></i> Share<b class="caret"></b>
+      </a>
+      <ul class="dropdown-menu">
+	<li><a id="share-newtab" target="_blank" ng-href="{{get_href()}}">
+	    <i class="glyphicon glyphicon-plus"></i> New tab
+	</a></li>
+	<li><a id="share-bookmark" rel="sidebar"
+	       ng-href="{{get_href()}}" ng-title="{{get_title()}}"
+	       ng-click="add_bookmark()">
+	    <i class="glyphicon glyphicon-star"></i> Bookmark
+	</a></li>
+	<li><a id="share-mail" ng-href="{{get_mail_href()}}">
+	    <i class="glyphicon glyphicon-envelope"></i> Mail
+	</a></li>
+	<li ng-if="MENU.share_report"><a ng-href="{{get_href('report.html')}}">
+	    <i class="glyphicon glyphicon-th-list"></i> Report
+	</a></li>
+	<li ng-if="MENU.share_compare"><a ng-href="{{get_href('compare.html')}}">
+	    <i class="glyphicon glyphicon-stats"></i> Compare graphs
+	</a></li>
+	<li ng-if="MENU.share_htmlexport"><a href="#" onclick="download_blob(exportDOM(), 'ivre_' + getPageName() + '_' + get_hash().replace(' ', '_'))">
+	    <i class="glyphicon glyphicon-export"></i> HTML export
+	</a></li>
+	<li ng-if="MENU.share_jsonexport"><a ng-href="{{get_json_export()}}">
+	    <i class="glyphicon glyphicon-export"></i> JSON export
+	</a></li>
+      </ul>
+    </li>
+  </ul>
+
+  <ul class="nav navbar-nav col-lg-1 col-md-1 visible-lg visible-md">
+    <a title="Commissariat &agrave; l'&eacute;nergie atomique et aux &eacute;nergies alternatives"
+       href="http://www.cea.fr/"
+       target="_blank"
+       class="navbar-link">
+      <img alt="CEA" src="cea-white.png" class="logo"/>
+    </a>
+  </ul>
+</div>

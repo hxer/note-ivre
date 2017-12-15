@@ -1,0 +1,106 @@
+<!--
+  This file is part of IVRE.
+  Copyright 2011 - 2015 Pierre LALET <pierre.lalet@cea.fr>
+
+  IVRE is free software: you can redistribute it and/or modify it
+  under the terms of the GNU General Public License as published by
+  the Free Software Foundation, either version 3 of the License, or
+  (at your option) any later version.
+
+  IVRE is distributed in the hope that it will be useful, but WITHOUT
+  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY
+  or FITNESS FOR A PARTICULAR PURPOSE.  See the GNU General Public
+  License for more details.
+
+  You should have received a copy of the GNU General Public License
+  along with IVRE. If not, see <http://www.gnu.org/licenses/>.
+-->
+
+<div class="result-container"
+     ng-class="{preview: !host.fulldisplay, result: host.fulldisplay}"
+     ng-repeat="host in results"
+     ng-mousedown="set_timer_toggle_preview($event, host)"
+     ng-mouseup="clear_timer_toggle_preview($event)"
+     ng-mousemove="clear_timer_toggle_preview($event)"
+     >
+  <div host-summary=""></div>
+<!-- Next div is only displayed in summary mode-->
+<div class="summary"
+     ng-hide="host.fulldisplay"
+     ports-summary=""></div>
+<!-- Next div is only displayed in full mode-->
+<div class="full"
+     ng-if="host.fulldisplay">
+  <!-- extraports -->
+  <dd ng-repeat="(epstatus, epvalues) in ::host.extraports">
+    {{::epvalues["total"]}} port{{::epvalues.total > 1 && "s" || ""}}
+    <span class="label label-status"
+	  ng-class="::class_from_port_status(epstatus)">
+      {{::epstatus | uppercase}}
+    </span>
+    <span ng-repeat="(reason, count) in ::epvalues.reasons">
+      {{::count}} {{::reason}}<span ng-if="!$last">, </span>
+    </span>
+  </dd>
+  <!-- ports w/ scripts, etc. -->
+  <dt ng-repeat-start="port in ::host.ports | orderBy:['protocol','port']"
+      ng-if="::port.port !== -1"
+      class="port">
+    <div port-summary=""></div>
+  </dt>
+  <dd ng-repeat-end ng-if="port.port !== -1">
+    <div ng-if="::port.service_name"
+	 class="result-service"
+	 service-summary="">
+    </div>
+    <div ng-repeat="script in ::port.scripts"
+	 ng-class="{highlight: wanted_script(script.id)}">
+      {{::script.id}}
+      <pre class="result-scripts-output"
+	   ng-class="{highlight: wanted_script(script.id)}"
+	   script-output="port"/>
+    </div>
+  </dd>
+  <!-- hostscripts, traceroute, etc. -->
+  <dt class="result-host-scripts"
+      ng-if="::host.scripts">Host scripts</dt>
+  <dd ng-repeat="script in ::host.scripts"
+      ng-class="{highlight: wanted_script(script.id)}">
+    {{::script.id}}
+    <pre class="result-scripts-output"
+	 ng-class="{highlight: wanted_script(script.id)}"
+	 script-output="host"/>
+  </dd>
+  <dt class="result-traceroute"
+      ng-if="::host.traces">
+    Traceroute{{::host.traces.length > 1 && "s" || ""}}
+  </dt>
+  <dd ng-repeat="trace in ::host.traces"
+      ng-class="{highlight: wanted_trace(trace)}">
+    using {{::trace.protocol}}{{::trace.port && ("/" + trace.port) || ""}}
+    <div class="result-traceroute-hops"
+	 ng-class="{highlight: wanted_trace(trace)}"><table>
+	<tr ng-repeat="hop in ::trace.hops | orderBy:'ttl'"
+	    ng-class="{'highlight-more': wanted_hop(hop.ipaddr)}"
+	    >
+	  <td>{{::hop.ttl}}</td>
+	  <td><a class="clickable"
+		 ng-click="setparam('hop', hop.ipaddr)"
+		 >{{::hop.ipaddr}}</a>{{::hop.host && (" (" + hop.host + ")") || ""}}</td>
+	  <td></td>
+	  <td>{{::hop.rtt}}</td>
+	</tr>
+    </table></div>
+  </dd>
+  <dt class="result-os" ng-if="::host.os.osclass">
+    OS Detection
+  </dt>
+  <dd ng-repeat="osclass in ::host.os.osclass | orderBy:'accuracy':true">
+    <div class="result-os-item">
+      {{::osclass.type}} / {{::osclass.vendor}} /
+      {{::osclass.osfamily}} {{::osclass.osgen}} /
+      accuracy = {{::osclass.accuracy}}
+    </div>
+  </dd>
+  <div ng-if="::host.cpes" cpes=""></div>
+</div>
