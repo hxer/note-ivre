@@ -1499,6 +1499,7 @@ class Nmap2DB(NmapHandler):
                              add_addr_infos=add_addr_infos, merge=merge,
                              **kargs)
 
+    # 主机数据入库
     def _addhost(self):
         if self.categories:
             self._curhost['categories'] = self.categories[:]

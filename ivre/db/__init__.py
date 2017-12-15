@@ -352,6 +352,7 @@ class DBNmap(DB):
             return False
         with utils.open_file(fname) as fdesc:
             fchar = fdesc.read(1)
+        # dict自动映射替代if判断
         try:
             store_scan_function = {
                 b'<': self.store_scan_xml,
@@ -1653,7 +1654,7 @@ class MetaDB(object):
     @classmethod
     def url2dbinfos(cls, url):
         url = urlparse(url)
-        if url.scheme in cls.extract_dbinfos:
+        if url.schemeurl.scheme in cls.extract_dbinfos:
             return cls.extract_dbinfos[url.scheme](url)
         return url.scheme, (url.geturl(),), {}
 
@@ -1699,6 +1700,7 @@ class MetaDB(object):
                         dbtypes[spurlscheme](*spurlargs, **spurlkargs))
                     getattr(self, datatype).globaldb = self
 
+# 数据对外接口
 db = MetaDB(
     url=config.DB if hasattr(config, "DB") else None,
     urls=dict([x[3:].lower(), getattr(config, x)]

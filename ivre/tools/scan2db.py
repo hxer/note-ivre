@@ -112,6 +112,7 @@ def main():
     else:
         scans = args.scan
     count = 0
+    # 扫描结果导入数据
     for scan in scans:
         try:
             if database.store_scan(

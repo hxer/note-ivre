@@ -440,6 +440,12 @@ argparser.add_argument('--state', type=int, nargs=4,
 
 
 def target_from_args(args):
+    # 扫描目标方式选取，扫描选项分为两种：预扫描和全扫描。
+    # 预扫描有zmap和nmap两种。
+    # 全扫描策略分为三种
+    #       使用GeoIP有根据国家，城市，自治系统获取ip
+    #       指定ip范围
+    #       读取目标文件。
     if args.country is not None:
         target = TargetCountry(args.country,
                                categories=args.categories,

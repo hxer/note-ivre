@@ -206,17 +206,21 @@ def call_nmap(options, xmlprocess, targets,
               accept_target_status=None):
     if accept_target_status is None:
         accept_target_status = [STATUS_NEW]
+    # "-oX -" 输出XML格式结果, 只输出到标准输出
+    # "-iL -" 输入一系列目标, 标准输入
     options += ['-oX', '-', '-iL', '-']
     proc = subprocess.Popen(options, preexec_fn=setnmaplimits,
                             stdin=subprocess.PIPE, stdout=subprocess.PIPE)
     procout = proc.stdout.fileno()
     procoutfl = fcntl.fcntl(procout, fcntl.F_GETFL)
+    # 设置为非阻塞
     fcntl.fcntl(procout, fcntl.F_SETFL, procoutfl | os.O_NONBLOCK)
     toread = [proc.stdout]
     towrite = [proc.stdin]
     targiter = targets.__iter__()
     while toread:
         # print("ENTERING SELECT")
+        # io 多路复用select
         rlist, wlist = select.select(toread, towrite, [])[:2]
         # print("LEAVING SELECT", rlist, wlist)
         for rfdesc in rlist:
@@ -228,6 +232,7 @@ def call_nmap(options, xmlprocess, targets,
         for wfdesc in wlist:
             try:
                 naddr = ivre.utils.int2ip(next(targiter))
+                # 根据accpt策略，判断是否重复扫描 
                 while xmlprocess.target_status(
                         naddr) not in accept_target_status:
                     naddr = ivre.utils.int2ip(next(targiter))
@@ -245,6 +250,7 @@ def call_nmap(options, xmlprocess, targets,
             except IOError:
                 print("ERROR: NMAP PROCESS IS DEAD")
                 return -1
+    # 等待子进程完成
     proc.wait()
     return 0
 
@@ -253,8 +259,13 @@ def _call_nmap_single(maincategory, options,
                       accept_target_status, target):
     target = ivre.utils.int2ip(target)
     outfile = 'scans/%s/%%s/%s.xml' % (maincategory, target.replace('.', '/'))
+    # 根据accept_target_status状态策略决定是否覆盖继续扫描并覆盖已有结果文件
+    # accept_target_status默认为set(STATUS_NEW), 即不覆盖任何已有结果文件
     if STATUS_DONE_UP not in accept_target_status:
         try:
+            # 这里使用os.stat 函数检查文件是否存在
+            # os.path中检查文件或文件夹是否存在的系列函数(isfile, isdir, exists等)
+            # 里面都是调用os.stat以及结合其他属性来判断的
             os.stat(outfile % 'up')
             return
         except OSError:
@@ -272,8 +283,11 @@ def _call_nmap_single(maincategory, options,
         except OSError:
             pass
     ivre.utils.makedirs(os.path.dirname(outfile % 'current'))
+    # 命令行调用， 结果保存在outfile ===================
+    # 对比 call_nmap函数使用Popen函数，这里是直接命令行存本地文件，无需使用Popen
     subprocess.call(options + ['-oX', outfile % 'current', target],
                     preexec_fn=setnmaplimits)
+    # 根据返回的扫描结果状态移动到相应路径
     resdata = open(outfile % 'current', 'rb').read()
     if b'<status state="up"' in resdata:
         outdir = 'up'
@@ -325,6 +339,7 @@ def main():
     parser.add_argument('--nmap-max-stack-size', metavar='SIZE', type=int,
                         help="maximum size (in bytes) of each nmap "
                         "process's stack")
+    # 重复扫描策略 =============================
     if using_argparse:
         parser.add_argument('--again', nargs='+',
                             choices=['up', 'down', 'unknown', 'all'],
@@ -413,6 +428,8 @@ def main():
         parser.error("argument --output: invalid choice: '%s' "
                      "(only available with --country, --region, --city, "
                      "--asnum or --routable)" % args.output)
+    
+    # 目标解析 ========================
     targets = ivre.target.target_from_args(args)
     if targets is None:
         parser.error('one argument of --country/--region/--city/--asnum/'
@@ -429,11 +446,15 @@ def main():
             [STATUS_NEW]))
     if args.zmap_prescan_port is not None:
         args.nmap_ping_types = ["PS%d" % args.zmap_prescan_port]
+    # nmap 预扫描
     elif args.nmap_prescan_ports is not None:
         args.nmap_ping_types = [
             "PS%s" % ",".join(str(p) for p in args.nmap_prescan_ports)
         ]
+    # namp选项构建    
     options = ivre.nmapopt.build_nmap_options(template=args.nmap_template)
+
+    # 资源限制
     if args.nmap_max_cpu is not None:
         NMAP_LIMITS[resource.RLIMIT_CPU] = (args.nmap_max_cpu,
                                             args.nmap_max_cpu)
@@ -443,6 +464,7 @@ def main():
     if args.nmap_max_stack_size is not None:
         NMAP_LIMITS[resource.RLIMIT_STACK] = (args.nmap_max_stack_size,
                                               args.nmap_max_stack_size)
+    # 多进程支持
     if args.output == 'XMLFork':
         pool = multiprocessing.Pool(processes=args.processes)
         if USE_PARTIAL:
@@ -477,6 +499,7 @@ def main():
                 ' '.join(str(elt) for elt in targiter.getstate())
             ))
         exit(0)
+    # pythonic ++++++++++++++++++++++++++++++
     xmlprocess = {
         'XML': (XmlProcessWritefile,
                 ['./scans/%s/' % targets.infos['categories'][0]], {}),
